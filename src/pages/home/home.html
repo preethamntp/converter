@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Currency converter</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to converter</h2>
+  <form [formGroup]="converterForm" (ngSubmit)="convert()">
+    <ion-item>
+      <ion-label>Enter amount</ion-label>
+      <ion-input type="number" formControlName="currencyValue"></ion-input>
+    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-label>From</ion-label>
+        <ion-select formControlName="currencyFrom">
+          <ion-option value="AED">UAE Dirham</ion-option>
+          <ion-option value="AFN">Afghani</ion-option>
+          <ion-option value="ALL">ALBANIA (Lek)</ion-option>
+          <ion-option value="AMD">ARMENIA Armenian Dram</ion-option>
+          <ion-option value="ANG">CURAÇAO (Netherlands Antillean Guilder)</ion-option>
+          <ion-option value="AOA">ANGOLA (Kwanza)</ion-option>
+          <ion-option value="ARS">ARGENTINA (Argentine Peso)</ion-option>
+          <ion-option value="AUD">Australian Dollar</ion-option>
+          <ion-option value="AWG">ARUBA (Aruban Florin)</ion-option>
+          <ion-option value="AZN">AZERBAIJAN (Azerbaijanian Manat)</ion-option>
+          <ion-option value="AUD">Australian Dollar</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>To</ion-label>
+        <ion-select formControlName="currencyTo">
+          <ion-option value="AED">UNITED ARAB EMIRATES</ion-option>
+          <ion-option value="AFN">AFGHANISTAN Afghani</ion-option>
+          <ion-option value="ALL">ALBANIA (Lek)</ion-option>
+          <ion-option value="AMD">ARMENIA Armenian Dram</ion-option>
+          <ion-option value="ANG">CURAÇAO (Netherlands Antillean Guilder)</ion-option>
+          <ion-option value="AOA">ANGOLA (Kwanza)</ion-option>
+          <ion-option value="ARS">ARGENTINA (Argentine Peso)</ion-option>
+          <ion-option value="AUD">Australian Dollar</ion-option>
+          <ion-option value="AWG">ARUBA (Aruban Florin)</ion-option>
+          <ion-option value="AZN">AZERBAIJAN (Azerbaijanian Manat)</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div *ngIf="value">
+      Converted exchange rate = {{value}}
+    </div>
+    <button ion-button type="submit">Submit</button>
+  </form>
+
+
+</ion-content>
