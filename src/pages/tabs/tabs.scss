@@ -1,0 +1,35 @@
+tabs-page {
+  .content {
+    background: #b7dfb8;
+  }
+
+  .shapeborder {
+    border: 1px solid transparent;
+  }
+
+  .circle {
+    border-radius: 50%;
+  }
+
+  .outer {
+    background-color: #98d3da;
+    width: 150px;
+    height: 150px;
+    position: relative;
+  }
+
+  .inner {
+    background-color: #b87680;
+    top: 6%;
+    left: 13%;
+    width: 75%;
+    height: 75%;
+    position: relative;
+  }
+
+  .inner>div {
+    top: 15%;
+    position: inherit;
+    text-align: center;
+  }
+}

@@ -1,5 +1,44 @@
-<ion-tabs>
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      Convert Units
+    </ion-card-header>
+
+    <ion-card-content>
+      This converter tool contains, Currency Conversion, S.I Units Convertion
+    </ion-card-content>
+
+  </ion-card>
+  <ion-card>
+    <ion-grid padding>
+      <ion-row>
+        <ion-col col-6>
+          <div class="outer circle shapeborder">
+            <div color="secondary" [ngClass]="onclickCurr==true?'animated bounceIn': '!onclickCurr'" (click)="helloWorld()"
+              class="inner circle shapeborder">
+              &nbsp;
+              <div>Convert <br> Currency</div>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col col-6>
+          <div class="outer circle shapeborder">
+            <div color="secondary" [ngClass]="onclickSi==true?'animated bounceIn': '!onclickSi'" (click)="helloSiUnits()"
+              class="inner circle shapeborder">
+              &nbsp;
+              <div>Convert <br> S.I Units</div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card>
+</ion-content>
+<!-- <ion-tabs>
   <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
-  <!-- <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab> -->
-</ion-tabs>
+  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>
+</ion-tabs> -->

@@ -32,8 +32,9 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <div *ngIf="value">
-      Converted exchange rate = {{value}}
+    <div class="answer" padding *ngIf="value">
+      {{reqObj.currencyValue | currency:reqObj.currencyFrom:'symbol':'1.2-2'}} = {{value |
+      currency:reqObj.currencyTo:'symbol':'4.2-2'}}
     </div>
     <button ion-button type="submit">Submit</button>
   </form>

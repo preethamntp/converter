@@ -13,6 +13,7 @@ export class HomePage {
   currencies: any;
   items: any;
   countries: any;
+  reqObj: { currencyFrom: any; currencyTo: any; currencyValue: any; };
   constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public currencyService: CurencyApiProvider) {
     this.getCountryList();
     this.converterForm = this.formBuilder.group({
@@ -22,7 +23,7 @@ export class HomePage {
     });
   }
   convert() {
-    let reqObj = {
+    this.reqObj = {
       currencyFrom: this.converterForm.value.currencyFrom,
       currencyTo: this.converterForm.value.currencyTo,
       currencyValue: this.converterForm.value.currencyValue
@@ -31,16 +32,12 @@ export class HomePage {
       this.currencyService.getCurrencyRate().subscribe(data => {
         localStorage.setItem('currencies', JSON.stringify(data));
         var currencies = JSON.parse(localStorage.getItem('currencies'));
-        reqObj.currencyValue = ((reqObj.currencyValue * currencies.rates[reqObj.currencyTo]) / currencies.rates[reqObj.currencyFrom])
-        console.log(reqObj.currencyValue);
-        this.value = reqObj.currencyValue;
+        this.value = ((this.reqObj.currencyValue * currencies.rates[this.reqObj.currencyTo]) / currencies.rates[this.reqObj.currencyFrom])
       });
     }
     else if (JSON.parse(localStorage.getItem('currencies'))) {
       var currencies = JSON.parse(localStorage.getItem('currencies'));
-      reqObj.currencyValue = ((reqObj.currencyValue * currencies.rates[reqObj.currencyTo]) / currencies.rates[reqObj.currencyFrom])
-      console.log(reqObj.currencyValue);
-      this.value = reqObj.currencyValue;
+      this.value = ((this.reqObj.currencyValue * currencies.rates[this.reqObj.currencyTo]) / currencies.rates[this.reqObj.currencyFrom])
     }
   }
   doRefresh(event) {
