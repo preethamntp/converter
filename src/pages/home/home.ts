@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { CurencyApiProvider } from '../../providers/curency-api/curency-api';
+import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { CurencyApiProvider } from "../../providers/curency-api/curency-api";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html",
 })
 export class HomePage {
   private converterForm: FormGroup;
@@ -13,44 +13,63 @@ export class HomePage {
   currencies: any;
   items: any;
   countries: any;
-  reqObj: { currencyFrom: any; currencyTo: any; currencyValue: any; };
-  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public currencyService: CurencyApiProvider) {
+  symbol: any ;
+  reqObj: { currencyFrom: any; currencyTo: any; currencyValue: any };
+  constructor(
+    public navCtrl: NavController,
+    private formBuilder: FormBuilder,
+    public currencyService: CurencyApiProvider
+  ) {
     this.getCountryList();
     this.converterForm = this.formBuilder.group({
-      currencyValue: ['', Validators.required],
-      currencyFrom: ['', Validators.required],
-      currencyTo: ['', Validators.required]
+      currencyValue: ["", Validators.required],
+      currencyFrom: ["AED", Validators.required],
+      currencyTo: ["AFN", Validators.required],
     });
   }
+
   convert() {
     this.reqObj = {
       currencyFrom: this.converterForm.value.currencyFrom,
       currencyTo: this.converterForm.value.currencyTo,
-      currencyValue: this.converterForm.value.currencyValue
-    }
-    if (!(JSON.parse(localStorage.getItem('currencies')))) {
-      this.currencyService.getCurrencyRate().subscribe(data => {
-        localStorage.setItem('currencies', JSON.stringify(data));
-        var currencies = JSON.parse(localStorage.getItem('currencies'));
-        this.value = ((this.reqObj.currencyValue * currencies.rates[this.reqObj.currencyTo]) / currencies.rates[this.reqObj.currencyFrom])
-      });
-    }
-    else if (JSON.parse(localStorage.getItem('currencies'))) {
-      var currencies = JSON.parse(localStorage.getItem('currencies'));
-      this.value = ((this.reqObj.currencyValue * currencies.rates[this.reqObj.currencyTo]) / currencies.rates[this.reqObj.currencyFrom])
-    }
+      currencyValue: this.converterForm.value.currencyValue,
+    };
+
+    // this.currencyService.
+    // this.getCuntriesList(this.reqObj.currencyTo);
+    // if (!(JSON.parse(localStorage.getItem('currencies')))) {
+    this.currencyService.getCurrencyRate().subscribe((data) => {
+      localStorage.setItem("currencies", JSON.stringify(data));
+      var currencies = JSON.parse(localStorage.getItem("currencies"));
+      let convertedValue =
+        (this.reqObj.currencyValue * currencies.rates[this.reqObj.currencyTo]) /
+        currencies.rates[this.reqObj.currencyFrom];
+      this.currencyService
+        .getSymbols(this.reqObj.currencyTo)
+        .subscribe((resposne) => {
+          this.symbol = (resposne["symbol_native"]);
+
+          this.value = convertedValue.toFixed(2);
+        });
+    });
+    // }
+    // else if (JSON.parse(localStorage.getItem('currencies'))) {
+    //   var currencies = JSON.parse(localStorage.getItem('currencies'));
+    //   this.value = ((this.reqObj.currencyValue * currencies.rates[this.reqObj.currencyTo]) / currencies.rates[this.reqObj.currencyFrom])
+    // }
   }
   doRefresh(event) {
-    console.log('Begin async operation', event);
+    console.log("Begin async operation", event);
 
     setTimeout(() => {
-      console.log('Async operation has ended');
-      localStorage.removeItem('currencies')
+      console.log("Async operation has ended");
+      localStorage.removeItem("currencies");
       event.complete();
     }, 2000);
   }
+
   getCountryList() {
-    this.currencyService.getCuntriesList().subscribe(response => {
+    this.currencyService.getCuntriesList().subscribe((response) => {
       this.items = response;
     });
   }

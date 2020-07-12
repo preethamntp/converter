@@ -1,3 +1,42 @@
 page-contact {
 
+  #circle,
+  #circle .segment {
+    border-color: lightgray;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 5px;
+    box-sizing: border-box;
+    height: 100px;
+    position: relative;
+    width: 100px;
+  }
+
+  #circle .segment {
+    -webkit-clip-path: inset(0 40px 50px 40px);
+    /*content: ''; EDIT: not needed */
+    left: -5px;
+    position: absolute;
+    top: -5px;
+  }
+
+  #circle .segment:nth-child(1) {
+    border-color: red;
+    transform: rotate(-20deg);
+  }
+
+  #circle .segment:nth-child(2) {
+    border-color: blue;
+    transform: rotate(70deg);
+  }
+
+  #circle .segment:nth-child(3) {
+    border-color: green;
+    transform: rotate(160deg);
+  }
+
+  #circle .segment:nth-child(4) {
+    border-color: yellow;
+    transform: rotate(250deg);
+  }
 }
